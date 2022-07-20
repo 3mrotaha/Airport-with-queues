@@ -6,7 +6,6 @@
 */
 typedef struct Flights{
 	char* Destination;
-	
 	Time_t	FlyDuration;
 }Flight_t;
 
@@ -41,8 +40,11 @@ typedef struct Plane{
 	Flight_t Flight;
 	
 	Time_t TakeoffTime;
+	
 	Time_t ActualTakeoffTime;
+	
 	Time_t RunWayTime;
+	
 	Time_t LandTime;
 	
 }Plane_t;

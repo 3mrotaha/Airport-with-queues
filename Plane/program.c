@@ -4,8 +4,8 @@
 #include "..\Time\time_config.h"
 #include "..\Time\time_privilege.h"
 
-#include "Plane_ErrorStates.h"
-#include "Plane_config.h"
+#include "plane_ErrorStates.h"
+#include "plane_config.h"
 #include "plane_private.h"
 
 
