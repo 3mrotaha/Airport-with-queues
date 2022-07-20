@@ -66,10 +66,18 @@ ErrorStates_t	QueueEmpty(Queue_t);
 ErrorStates_t	QueueFull(Queue_t);
 
 /*
+	pre: queue is initialized and NotEmpty
+	post: - if it's not Empty it returns enum(QUEUE_FRONT_REVEILED)
+		  - if the queue is empty it returns enum(QUEUE_EMPTY)
+*/
+ErrorStates_t	ChangeFront(QueueEntry, Queue_t*);
+
+
+/*
 	pre: queue is initialized and not empty
 	post: - executes a function built by the user to interact with the queue's entries 
-		  - if it's not empty it returns enum(QUEUE_REAR_REVEILED)
-		  - if the queue is full it returns enum(QUEUE_EMPTY)
+		  - if it's not empty it returns enum(QUEUE_TRAVERSED)
+		  - if the queue is empty it returns enum(QUEUE_EMPTY)
 */
 ErrorStates_t	QueueTraverse(Queue_t, void (*) (QueueEntry));
 

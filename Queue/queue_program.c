@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 #include "Error_States.h"
+#include "..\Time\time_config.h"
 #include "..\Plane\Plane_config.h"
 #include "queue_config.h"
 
@@ -135,6 +137,17 @@ ErrorStates_t	QueueEmpty(Queue_t Queue){
 */
 ErrorStates_t	QueueFull(Queue_t Queue){
 	return QUEUE_NOT_FULL;
+}
+
+ErrorStates_t	ChangeFront(QueueEntry Entry, Queue_t* pQueue){
+	if(pQueue->size != 0){
+		pQueue->front->Item = Entry;
+		return QUEUE_FRONT_REVEILED;
+	}
+	else{
+		return QUEUE_EMPTY;
+	}
+	
 }
 
 /*

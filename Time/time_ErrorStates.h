@@ -1,0 +1,11 @@
+#ifndef	_TIME_ERROR_STATES_
+#define _TIME_ERROR_STATES_
+
+typedef enum time_error{
+	TIME_DEFINED,
+	TIME_IS_NOT_DEFINED,
+	TIME_COMPARE_DIFFERERNT,
+	TIME_COMPARE_SAME
+}TimeError_t;
+
+#endif
