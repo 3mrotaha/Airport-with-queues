@@ -1,12 +1,17 @@
 #ifndef _PLANE_TYPE_
 #define _PLANE_TYPE_
 
+/* specify the maximum number of flights */
+#define MAX_FLIGHTS		20
+
+
 /* Declaration : the flight type for each plane contains the destination of the plane
                  and the time the plane will take to reach its destination. 
 */
 typedef struct Flights{
 	char* Destination;
 	Time_t	FlyDuration;
+	Time_t TakeoffTime;
 }Flight_t;
 
 
@@ -23,7 +28,6 @@ typedef enum PlaneStatus{
 	
 	PLANE_FLYING,
 	PLANE_LANDING,
-	
 	PLANE_ON_AIR_BUT_HAVE_TO_WAIT,
 	PLANE_ON_GROUND_BUT_HAVE_TO_WAIT
 }PlaneStatus_t;
@@ -38,8 +42,6 @@ typedef struct Plane{
 	PlaneStatus_t status;
 	
 	Flight_t Flight;
-	
-	Time_t TakeoffTime;
 	
 	Time_t ActualTakeoffTime;
 	

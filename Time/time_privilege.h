@@ -7,4 +7,5 @@ TimeError_t IsSameTime(Time_t, Time_t);
 
 TimeError_t SumTimes(Time_t, Time_t, Time_t*);
 
+TimeError_t DecrementTimeBy1sec(Time_t*);
 #endif

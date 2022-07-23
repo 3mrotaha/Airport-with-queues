@@ -13,15 +13,15 @@ static int planeID = 0;
 static float planeSpeed = 70; // km/hr
 static const int WayLength = 2500; // m
 
-PlaneError_t	CreatePlane(Plane_t* pPlane, Flight_t Flight){
+PlaneError_t	CreatePlane(Plane_t* pPlane, Flight_t flight){
 	if(pPlane != NULL){
 		pPlane->id = ++planeID;
 		pPlane->status = PLANE_ON_GROUND;
 		
-		InitializeTime(&pPlane->TakeoffTime);
+		InitializeTime(&pPlane->Flight.TakeoffTime);
 		InitializeTime(&pPlane->ActualTakeoffTime);
 		InitializeTime(&pPlane->LandTime);
-		pPlane->Flight = Flight;
+		pPlane->Flight = flight;
 		pPlane->RunWayTime = CalculateRunWay(planeSpeed, WayLength);
 		planeSpeed += 10.75;
 		return PLANE_CREATED;
@@ -30,19 +30,6 @@ PlaneError_t	CreatePlane(Plane_t* pPlane, Flight_t Flight){
 		return PLANE_CREATION_ERROR;
 	}
 }
-
-PlaneError_t	SetTakeOffTime(Time_t time, Plane_t* pPlane){
-	if(!IsSameTime(pPlane->LandTime, time)){
-		pPlane->TakeoffTime.hr = time.hr;
-		pPlane->TakeoffTime.min = time.min;
-		pPlane->TakeoffTime.sec = time.sec;
-		return TIME_SET;
-	}
-	else{
-		return NO_NEED;
-	}
-}
-
 
 PlaneError_t	PlaneFly(Time_t time, Plane_t* pPlane){
 	if(pPlane->status != PLANE_ON_AIR){
@@ -58,7 +45,7 @@ PlaneError_t	PlaneFly(Time_t time, Plane_t* pPlane){
 }
 
 PlaneError_t	PlaneLand(Plane_t* pPlane){
-	if(pPlane->status != PLANE_ON_GROUND){	
+	if(pPlane->status != PLANE_ON_AIR){	
 	
 		SumTimes(pPlane->Flight.FlyDuration, pPlane->ActualTakeoffTime, &pPlane->LandTime);		
 		pPlane->status = PLANE_FLYING;
@@ -72,7 +59,7 @@ PlaneError_t	PlaneLand(Plane_t* pPlane){
 
 PlaneError_t 	WaitForRunWay(Plane_t P_OnRunWay, Plane_t* P_Wait){
 	if(P_Wait->status == READY_TO_FLY){
-		SumTimes(P_Wait->TakeoffTime, P_OnRunWay.RunWayTime, &P_Wait->TakeoffTime);
+		SumTimes(P_Wait->Flight.TakeoffTime, P_OnRunWay.RunWayTime, &P_Wait->Flight.TakeoffTime);
 	}
 	else{
 		SumTimes(P_Wait->LandTime, P_OnRunWay.RunWayTime, &P_Wait->LandTime);
